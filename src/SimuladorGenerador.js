@@ -16,7 +16,9 @@ const EQUIPOS = [
     { nombre: "Calefont/termoeléctrico", watts: 2000 },
     { nombre: "Cargador de celular", watts: 18 },
     { nombre: "Router de internet", watts: 15 },
-    { nombre: "Congeladora", watts: 400 }
+    { nombre: "Congeladora", watts: 400 },
+    { nombre: "Plancha", watts: 1200 },
+    { nombre: "Horno eléctrico", watts: 1800 }
 ];
 
 export default function SimuladorGenerador() {
