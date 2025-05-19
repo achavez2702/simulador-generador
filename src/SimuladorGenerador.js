@@ -3,22 +3,24 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 const EQUIPOS = [
-    { nombre: "Ampolleta LED (10 unidades)", watts: 100 },
-    { nombre: "Refrigerador", watts: 300 },
-    { nombre: "Televisor LED", watts: 120 },
-    { nombre: "Computador portátil", watts: 80 },
-    { nombre: "Computador de escritorio", watts: 250 },
-    { nombre: "Lavadora", watts: 800 },
-    { nombre: "Microondas", watts: 1000 },
-    { nombre: "Hervidor", watts: 1500 },
-    { nombre: "Aire acondicionado (Split)", watts: 2000 },
-    { nombre: "Bomba de agua", watts: 1000 },
-    { nombre: "Calefont/termoeléctrico", watts: 2000 },
-    { nombre: "Cargador de celular", watts: 18 },
-    { nombre: "Router de internet", watts: 15 },
-    { nombre: "Congeladora", watts: 400 },
-    { nombre: "Plancha", watts: 1200 },
-    { nombre: "Horno eléctrico", watts: 1800 }
+    { nombre: "Ampolleta LED (10 unidades)", watts: 100, consumoPromedio: "0.1 kWh/día" },
+    { nombre: "Refrigerador", watts: 300, consumoPromedio: "1.8 kWh/día" },
+    { nombre: "Televisor LED", watts: 120, consumoPromedio: "0.6 kWh/día" },
+    { nombre: "Computador portátil", watts: 80, consumoPromedio: "0.4 kWh/día" },
+    { nombre: "Computador de escritorio", watts: 250, consumoPromedio: "1.2 kWh/día" },
+    { nombre: "Lavadora", watts: 800, consumoPromedio: "0.6 kWh/día" },
+    { nombre: "Microondas", watts: 1000, consumoPromedio: "0.3 kWh/día" },
+    { nombre: "Hervidor", watts: 1500, consumoPromedio: "0.4 kWh/día" },
+    { nombre: "Tostador", watts: 1000, consumoPromedio: "0.2 kWh/día" },
+    { nombre: "Juguera", watts: 300, consumoPromedio: "0.1 kWh/día" },
+    { nombre: "Aire acondicionado (Split)", watts: 2000, consumoPromedio: "2.5 kWh/día" },
+    { nombre: "Bomba de agua", watts: 1000, consumoPromedio: "0.8 kWh/día" },
+    { nombre: "Calefont/termoeléctrico", watts: 2000, consumoPromedio: "2.0 kWh/día" },
+    { nombre: "Cargador de celular", watts: 18, consumoPromedio: "0.05 kWh/día" },
+    { nombre: "Router de internet", watts: 15, consumoPromedio: "0.3 kWh/día" },
+    { nombre: "Congeladora", watts: 400, consumoPromedio: "1.0 kWh/día" },
+    { nombre: "Plancha", watts: 1200, consumoPromedio: "0.5 kWh/día" },
+    { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: "1.5 kWh/día" }
 ];
 
 export default function SimuladorGenerador() {
@@ -82,6 +84,7 @@ export default function SimuladorGenerador() {
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Potencia (W)</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Horas de uso</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Consumo diario (Wh)</th>
+                            <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Consumo promedio</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,14 +105,15 @@ export default function SimuladorGenerador() {
                                     />
                                 </td>
                                 <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{calcularConsumoDiario(eq)}</td>
+                                <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{eq.consumoPromedio}</td>
                             </tr>
                         ))}
                         <tr style={{ backgroundColor: '#f9f9f9', fontWeight: 'bold' }}>
-                            <td colSpan={3} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo diario (Wh)</td>
+                            <td colSpan={4} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo diario (Wh)</td>
                             <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{totalConsumoDiario}</td>
                         </tr>
                         <tr style={{ backgroundColor: '#f9f9f9', fontWeight: 'bold' }}>
-                            <td colSpan={3} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo mensual (kWh)</td>
+                            <td colSpan={4} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo mensual (kWh)</td>
                             <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{totalConsumoMensual.toFixed(2)}</td>
                         </tr>
                     </tbody>
