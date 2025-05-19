@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 const EQUIPOS = [
-    { nombre: "Ampolleta LED (10 unidades)", watts: 100, consumoPromedio: "0.1 kWh/día" },
+    { nombre: "Ampolleta LED (unidad)", watts: 10, consumoPromedio: "0.01 kWh/día" },
     { nombre: "Refrigerador", watts: 300, consumoPromedio: "1.8 kWh/día" },
     { nombre: "Televisor LED", watts: 120, consumoPromedio: "0.6 kWh/día" },
     { nombre: "Computador portátil", watts: 80, consumoPromedio: "0.4 kWh/día" },
@@ -20,7 +20,9 @@ const EQUIPOS = [
     { nombre: "Router de internet", watts: 15, consumoPromedio: "0.3 kWh/día" },
     { nombre: "Congeladora", watts: 400, consumoPromedio: "1.0 kWh/día" },
     { nombre: "Plancha", watts: 1200, consumoPromedio: "0.5 kWh/día" },
-    { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: "1.5 kWh/día" }
+    { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: "1.5 kWh/día" },
+    { nombre: "Consola de juegos", watts: 150, consumoPromedio: "0.4 kWh/día" },
+    { nombre: "Decodificador de TV", watts: 50, consumoPromedio: "0.2 kWh/día" }
 ];
 
 export default function SimuladorGenerador() {
