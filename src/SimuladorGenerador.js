@@ -27,13 +27,16 @@ export default function SimuladorGenerador() {
     const [horasUso, setHorasUso] = useState(
         EQUIPOS.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 0 }), {})
     );
+    const [cantidades, setCantidades] = useState(
+        EQUIPOS.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 1 }), {})
+    );
     const [horasFuncionamiento, setHorasFuncionamiento] = useState(4);
     const [mostrarResultado, setMostrarResultado] = useState(false);
     const precioPorLitro = 1390;
 
     const calcularPotencia = () => {
         const consumoTotal = EQUIPOS.reduce(
-            (acc, eq) => acc + eq.watts * (horasUso[eq.nombre] || 0),
+            (acc, eq) => acc + eq.watts * (horasUso[eq.nombre] || 0) * (cantidades[eq.nombre] || 1),
             0
         );
         const simultaneidad = 0.6;
@@ -41,7 +44,7 @@ export default function SimuladorGenerador() {
         return Math.ceil(potenciaMinima / 100) * 100;
     };
 
-    const calcularConsumoDiario = (eq) => eq.watts * (horasUso[eq.nombre] || 0);
+    const calcularConsumoDiario = (eq) => eq.watts * (horasUso[eq.nombre] || 0) * (cantidades[eq.nombre] || 1);
 
     const totalConsumoDiario = EQUIPOS.reduce(
         (acc, eq) => acc + calcularConsumoDiario(eq),
@@ -82,6 +85,7 @@ export default function SimuladorGenerador() {
                         <tr style={{ backgroundColor: '#f2f2f2' }}>
                             <th style={{ border: '1px solid #ccc', padding: '8px' }}>Equipo</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Potencia (W)</th>
+                            <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Cantidad</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Horas de uso</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Consumo diario (Wh)</th>
                             <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Consumo promedio</th>
@@ -92,6 +96,18 @@ export default function SimuladorGenerador() {
                             <tr key={eq.nombre}>
                                 <td style={{ border: '1px solid #ccc', padding: '8px' }}>{eq.nombre}</td>
                                 <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{eq.watts}</td>
+                                <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        step="1"
+                                        value={cantidades[eq.nombre] || 1}
+                                        onChange={(e) =>
+                                            setCantidades({ ...cantidades, [eq.nombre]: parseInt(e.target.value) || 1 })
+                                        }
+                                        style={{ width: '100%', padding: '4px', boxSizing: 'border-box', textAlign: 'right' }}
+                                    />
+                                </td>
                                 <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>
                                     <input
                                         type="number"
@@ -109,11 +125,11 @@ export default function SimuladorGenerador() {
                             </tr>
                         ))}
                         <tr style={{ backgroundColor: '#f9f9f9', fontWeight: 'bold' }}>
-                            <td colSpan={4} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo diario (Wh)</td>
+                            <td colSpan={5} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo diario (Wh)</td>
                             <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{totalConsumoDiario}</td>
                         </tr>
                         <tr style={{ backgroundColor: '#f9f9f9', fontWeight: 'bold' }}>
-                            <td colSpan={4} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo mensual (kWh)</td>
+                            <td colSpan={5} style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>Total consumo mensual (kWh)</td>
                             <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>{totalConsumoMensual.toFixed(2)}</td>
                         </tr>
                     </tbody>
