@@ -4,7 +4,7 @@ import html2canvas from "html2canvas";
 
 const EQUIPOS = [
     { nombre: "Ampolleta LED (unidad)", watts: 10, consumoPromedio: 0.01 },
-    { nombre: "Refrigerador", watts: 300, consumoPromedio: 1.8, consumoFijo: 1.8 },
+    { nombre: "Refrigerador", watts: 300, consumoPromedio: 1.2, consumoFijo: 1.8 },
     { nombre: "Televisor LED", watts: 120, consumoPromedio: 0.6 },
     { nombre: "Computador portátil", watts: 80, consumoPromedio: 0.4 },
     { nombre: "Computador de escritorio", watts: 250, consumoPromedio: 1.2 },
