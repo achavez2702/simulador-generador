@@ -29,6 +29,7 @@ export default function SimuladorGenerador() {
         { nombre: "Secador de pelo", watts: 1800, consumoPromedio: 0.3 },
         { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 },
         { nombre: "Secadora", watts: 1500, consumoPromedio: 1.0 }
+        { nombre: "Estufa eléctrica", watts: 1500, consumoPromedio: 2.0 }
     ]);
 
   // Resto del código sin cambios...
