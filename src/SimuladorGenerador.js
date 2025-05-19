@@ -2,42 +2,41 @@ import { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const EQUIPOS = [
-    { nombre: "Ampolleta LED (unidad)", watts: 10, consumoPromedio: 0.01 },
-    { nombre: "Refrigerador", watts: 300, consumoPromedio: 1.2, consumoFijo: 1.8 },
-    { nombre: "Televisor LED", watts: 120, consumoPromedio: 0.6 },
-    { nombre: "Computador portátil", watts: 80, consumoPromedio: 0.4 },
-    { nombre: "Computador de escritorio", watts: 250, consumoPromedio: 1.2 },
-    { nombre: "Lavadora", watts: 800, consumoPromedio: 0.6 },
-    { nombre: "Microondas", watts: 1000, consumoPromedio: 0.3 },
-    { nombre: "Hervidor", watts: 1500, consumoPromedio: 0.4 },
-    { nombre: "Tostador", watts: 1000, consumoPromedio: 0.2 },
-    { nombre: "Juguera", watts: 300, consumoPromedio: 0.1 },
-    { nombre: "Aire acondicionado (Split)", watts: 2000, consumoPromedio: 2.5 },
-    { nombre: "Bomba de agua", watts: 1000, consumoPromedio: 0.8 },
-    { nombre: "Calefont/termoeléctrico", watts: 2000, consumoPromedio: 2.0 },
-    { nombre: "Cargador de celular", watts: 18, consumoPromedio: 0.05 },
-    { nombre: "Router de internet", watts: 15, consumoPromedio: 0.3 },
-    { nombre: "Congeladora", watts: 120, consumoPromedio: 0.68, consumoFijo: 0.68 },
-    { nombre: "Plancha", watts: 1200, consumoPromedio: 0.5 },
-    { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: 1.5 },
-    { nombre: "Consola de juegos", watts: 150, consumoPromedio: 0.4 },
-    { nombre: "Decodificador de TV", watts: 12, consumoPromedio: 0.2 },
-    { nombre: "Plancha de pelo", watts: 300, consumoPromedio: 0.2 },
-    { nombre: "Secador de pelo", watts: 1800, consumoPromedio: 0.3 },
-    { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 }
-];
-
 export default function SimuladorGenerador() {
-    // Estados y funciones
-    const [horasUso, setHorasUso] = useState(EQUIPOS.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 0 }), {}));
-    const [cantidades, setCantidades] = useState(EQUIPOS.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 1 }), {}));
+    const [equipos, setEquipos] = useState([
+        { nombre: "Ampolleta LED (unidad)", watts: 10, consumoPromedio: 0.01 },
+        { nombre: "Refrigerador", watts: 300, consumoPromedio: 1.2, consumoFijo: 1.2 },
+        { nombre: "Televisor LED", watts: 120, consumoPromedio: 0.6 },
+        { nombre: "Computador portátil", watts: 80, consumoPromedio: 0.4 },
+        { nombre: "Computador de escritorio", watts: 250, consumoPromedio: 1.2 },
+        { nombre: "Lavadora", watts: 800, consumoPromedio: 0.6 },
+        { nombre: "Microondas", watts: 1000, consumoPromedio: 0.3 },
+        { nombre: "Hervidor", watts: 1500, consumoPromedio: 0.4 },
+        { nombre: "Tostador", watts: 1000, consumoPromedio: 0.2 },
+        { nombre: "Juguera", watts: 300, consumoPromedio: 0.1 },
+        { nombre: "Aire acondicionado (Split)", watts: 2000, consumoPromedio: 2.5 },
+        { nombre: "Bomba de agua", watts: 1000, consumoPromedio: 0.8 },
+        { nombre: "Calefont/termoeléctrico", watts: 2000, consumoPromedio: 2.0 },
+        { nombre: "Cargador de celular", watts: 18, consumoPromedio: 0.05 },
+        { nombre: "Router de internet", watts: 15, consumoPromedio: 0.3 },
+        { nombre: "Congeladora", watts: 120, consumoPromedio: 0.68, consumoFijo: 0.68 },
+        { nombre: "Plancha", watts: 1200, consumoPromedio: 0.5 },
+        { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: 1.5 },
+        { nombre: "Consola de juegos", watts: 150, consumoPromedio: 0.4 },
+        { nombre: "Decodificador de TV", watts: 12, consumoPromedio: 0.07 },
+        { nombre: "Plancha de pelo", watts: 300, consumoPromedio: 0.2 },
+        { nombre: "Secador de pelo", watts: 1800, consumoPromedio: 0.3 },
+        { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 }
+    ]);
+
+    const [horasUso, setHorasUso] = useState(equipos.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 0 }), {}));
+    const [cantidades, setCantidades] = useState(equipos.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 1 }), {}));
     const [horasFuncionamiento, setHorasFuncionamiento] = useState(4);
     const [mostrarResultado, setMostrarResultado] = useState(false);
     const precioPorLitro = 1390;
 
     const calcularPotencia = () => {
-        const consumoTotal = EQUIPOS.reduce((acc, eq) => {
+        const consumoTotal = equipos.reduce((acc, eq) => {
             const cantidad = cantidades[eq.nombre] || 1;
             const horas = horasUso[eq.nombre] || 0;
             const potencia = eq.consumoFijo ? eq.consumoFijo * 1000 : eq.watts * horas;
@@ -60,7 +59,7 @@ export default function SimuladorGenerador() {
         return consumoReal > eq.consumoPromedio * 1.5 ? "⚠️ Alto" : "✅";
     };
 
-    const totalConsumoDiario = EQUIPOS.reduce((acc, eq) => acc + calcularConsumoDiario(eq), 0);
+    const totalConsumoDiario = equipos.reduce((acc, eq) => acc + calcularConsumoDiario(eq), 0);
     const totalConsumoMensual = totalConsumoDiario * 30 / 1000;
 
     const consumoLitros = () => {
@@ -103,15 +102,47 @@ export default function SimuladorGenerador() {
                         </tr>
                     </thead>
                     <tbody>
-                        {EQUIPOS.map((eq) => (
+                        {equipos.map((eq) => (
                             <tr key={eq.nombre}>
                                 <td>{eq.nombre}</td>
-                                <td style={{ textAlign: 'right' }}>{eq.watts}</td>
                                 <td style={{ textAlign: 'right' }}>
-                                    <input type="number" min="1" value={cantidades[eq.nombre]} onChange={(e) => setCantidades({ ...cantidades, [eq.nombre]: parseInt(e.target.value) || 1 })} style={{ width: '60px', textAlign: 'right' }} />
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        value={eq.watts}
+                                        onChange={(e) => {
+                                            const nuevaPotencia = parseInt(e.target.value) || 0;
+                                            setEquipos(
+                                                equipos.map((item) =>
+                                                    item.nombre === eq.nombre ? { ...item, watts: nuevaPotencia } : item
+                                                )
+                                            );
+                                        }}
+                                        style={{ width: '60px', textAlign: 'right' }}
+                                    />
                                 </td>
                                 <td style={{ textAlign: 'right' }}>
-                                    <input type="number" min="0" step="0.5" value={horasUso[eq.nombre]} onChange={(e) => setHorasUso({ ...horasUso, [eq.nombre]: parseFloat(e.target.value) || 0 })} style={{ width: '60px', textAlign: 'right' }} />
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        value={cantidades[eq.nombre]}
+                                        onChange={(e) =>
+                                            setCantidades({ ...cantidades, [eq.nombre]: parseInt(e.target.value) || 1 })
+                                        }
+                                        style={{ width: '60px', textAlign: 'right' }}
+                                    />
+                                </td>
+                                <td style={{ textAlign: 'right' }}>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="0.5"
+                                        value={horasUso[eq.nombre]}
+                                        onChange={(e) =>
+                                            setHorasUso({ ...horasUso, [eq.nombre]: parseFloat(e.target.value) || 0 })
+                                        }
+                                        style={{ width: '60px', textAlign: 'right' }}
+                                    />
                                 </td>
                                 <td style={{ textAlign: 'right' }}>{calcularConsumoDiario(eq)}</td>
                                 <td style={{ textAlign: 'right' }}>{eq.consumoPromedio}</td>
@@ -133,7 +164,13 @@ export default function SimuladorGenerador() {
 
                 <div style={{ marginTop: '1rem' }}>
                     <label>Horas continuas que funcionará el generador:</label>
-                    <input type="number" min="1" value={horasFuncionamiento} onChange={(e) => setHorasFuncionamiento(Number(e.target.value))} style={{ marginLeft: '1rem', width: '80px' }} />
+                    <input
+                        type="number"
+                        min="1"
+                        value={horasFuncionamiento}
+                        onChange={(e) => setHorasFuncionamiento(Number(e.target.value))}
+                        style={{ marginLeft: '1rem', width: '80px' }}
+                    />
                 </div>
 
                 <div style={{ marginTop: '1rem' }}>
