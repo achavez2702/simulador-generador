@@ -23,11 +23,16 @@ export default function SimuladorGenerador() {
         { nombre: "Plancha", watts: 1200, consumoPromedio: 0.5 },
         { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: 1.5 },
         { nombre: "Consola de juegos", watts: 150, consumoPromedio: 0.4 },
-        { nombre: "Decodificador de TV", watts: 12, consumoPromedio: 0.07 },
+        { nombre: "Decodificador de TV (en uso)", watts: 12, consumoPromedio: 0.07 },
+        { nombre: "Decodificador de TV (en espera)", watts: 3, consumoPromedio: 0.036 },
         { nombre: "Plancha de pelo", watts: 300, consumoPromedio: 0.2 },
         { nombre: "Secador de pelo", watts: 1800, consumoPromedio: 0.3 },
-        { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 }
+        { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 },
+        { nombre: "Secadora", watts: 1500, consumoPromedio: 1.0 }
     ]);
+
+  // Resto del código sin cambios...
+
 
     const [horasUso, setHorasUso] = useState(equipos.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 0 }), {}));
     const [cantidades, setCantidades] = useState(equipos.reduce((acc, eq) => ({ ...acc, [eq.nombre]: 1 }), {}));
