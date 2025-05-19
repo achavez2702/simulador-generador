@@ -22,7 +22,7 @@ const EQUIPOS = [
     { nombre: "Plancha", watts: 1200, consumoPromedio: 0.5 },
     { nombre: "Horno eléctrico", watts: 1800, consumoPromedio: 1.5 },
     { nombre: "Consola de juegos", watts: 150, consumoPromedio: 0.4 },
-    { nombre: "Decodificador de TV", watts: 50, consumoPromedio: 0.2 },
+    { nombre: "Decodificador de TV", watts: 12, consumoPromedio: 0.2 },
     { nombre: "Plancha de pelo", watts: 300, consumoPromedio: 0.2 },
     { nombre: "Secador de pelo", watts: 1800, consumoPromedio: 0.3 },
     { nombre: "Estufa a pellet", watts: 500, consumoPromedio: 1.0 }
